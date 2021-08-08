@@ -1,0 +1,23 @@
+server:
+  port : 8090
+
+  error:
+    include-message: always
+
+springdoc:
+  swagger-ui.path: /
+
+
+
+otus:
+  auth:
+    public: |
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3AiTYhfLg72UFGkwkNMW
+      +DwJwhbAoZi3but1XMmm9UPdXvy9E9uzUOYc6dL+P84XgS7jsW/dO9yJFhtaekwL
+      2H39l0m9ztLTTj1blKZKK8VrTdibhpNmElii1eioFluEqPBVtJugeOAeWFR8qTyk
+      nPB4Q3D2QCouXTJIv39xcAKhoSe3RrvaJdpAsBcgQBYd7xEiyvNJZ0aVpLvxnRLI
+      CSJYud1fk4CCh2r8NvtUZ/tu4ArpchSrZMTY+dWVMYdgtX5wvMBkm7un8sIiAM/D
+      R9/e/vh/HR/o3tCPUjaq1slVuFcI7mDXaP1CYgt8dg4whBg47eFon+jIOIP8fOgt
+      kwIDAQAB
+      -----END PUBLIC KEY-----
