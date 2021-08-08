@@ -1,0 +1,9 @@
+server:
+  port : 8080
+
+springdoc:
+  swagger-ui.path: /
+
+path:
+  auth: http://localhost:8095
+  business: http://localhost:8090

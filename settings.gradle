@@ -3,4 +3,5 @@ rootProject.name = 'lesson2'
 include 'auth'
 include 'keys'
 include 'business'
+include 'client'
 

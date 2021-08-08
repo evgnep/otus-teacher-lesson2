@@ -1,25 +1,15 @@
-# Getting Started
+# Демо к уроку по JWT
 
-### Reference Documentation
+Запуск в IDEA - выбираете в списке конфигураций 
+ClientApplication и запускаете, далее (не останавливая ClientApplication) повторяете
+с AuthApplication и BusinessApplication.
 
-For further reference, please consider the following sections:
+Запуск из командной строки - запускаете три консоли
+* в первой - gradlew auth:bootRun
+* во второй - gradlew client:bootRun
+* в третьей gradlew business:bootRun
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#boot-features-developing-web-applications)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-
-### Additional Links
-
-These additional references should also help you:
-
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
-
+После запуска 
+* ClientApplication доступна на localhost:8080
+* AuthApplication - localhost:8095
+* BusinessApplication - localhost:8090
