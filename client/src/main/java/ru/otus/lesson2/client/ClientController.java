@@ -1,8 +1,7 @@
 package ru.otus.lesson2.client;
 
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,10 +10,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,7 +52,13 @@ public class ClientController {
 
     @GetMapping("/fakeToken")
     public String fakeToken() {
-        // TODO token = ...
+        token = Jwts.builder()
+                .setSubject("hacker")
+                .addClaims(Map.of(
+                        "admin", true,
+                        "privileged", true))
+                .signWith(SignatureAlgorithm.HS256, "password012345678901234567890123456789".getBytes(StandardCharsets.UTF_8))
+                .compact();
 
         return currentToken();
     }
