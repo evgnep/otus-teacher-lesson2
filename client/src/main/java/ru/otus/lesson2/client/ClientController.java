@@ -6,14 +6,16 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -24,6 +26,12 @@ import java.util.Map;
 public class ClientController {
     private final Paths paths;
     private String token;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    {
+        restTemplate.getInterceptors().add(new AuthorizationInterceptor());
+    }
 
     @GetMapping("/queryToken")
     public String queryToken(String user, String password) {
@@ -70,21 +78,26 @@ public class ClientController {
                 .queryParam("b", b)
                 .toUriString();
 
-        var headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + token);
-
-        var entity = new HttpEntity<>(headers);
 
         log.info("Query: {} with token {}", url, token);
-        var result = new RestTemplate().exchange(url, HttpMethod.GET, entity, Answer.class);
+        var result = restTemplate.getForObject(url, Answer.class);
         log.info("Result: {}", result);
 
-        return result.getBody().getAnswer();
+        return result.getAnswer();
     }
 
     @Data
     public static class Answer {
         private String user;
         private Integer answer;
+    }
+
+    private class AuthorizationInterceptor implements ClientHttpRequestInterceptor {
+        @Override
+        public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+            request.getHeaders().add("Authorization", "Bearer " + token);
+            var response = execution.execute(request, body);
+            return response;
+        }
     }
 }
